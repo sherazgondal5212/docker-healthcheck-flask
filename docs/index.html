@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Project 1.1: Containerized Flask App | Gondal Digital Agency</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0b1f3a;--navy2:#13305a;--gold:#c9a24b;--bg:#faf8f3;--card:#ffffff;--ink:#14233b;--mute:#5a6678;--line:#e3ddcc;--term:#0b1f3a;--termink:#e8edf5;--ok:#7fd49a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#08162b;--card:#0f2444;--ink:#eef1f6;--mute:#a7b3c6;--line:#24406b;--term:#050f1f}}
+:root[data-theme="dark"]{--bg:#08162b;--card:#0f2444;--ink:#eef1f6;--mute:#a7b3c6;--line:#24406b;--term:#050f1f}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+h1,h2{font-family:Fraunces,Georgia,serif;line-height:1.15}
+h2{font-size:1.6rem;margin:0 0 6px}
+section{padding:36px 0;border-top:1px solid var(--line)}
+.sub{color:var(--mute);margin:0 0 18px;max-width:62ch}
+.hero{background:linear-gradient(160deg,var(--navy),var(--navy2));color:#fff;padding:56px 0 48px}
+.hero h1{font-size:clamp(2rem,6vw,3.2rem);margin:0 0 12px}
+.hero p{color:#d5dcea;max-width:58ch;margin:0 0 22px}
+.brand{color:var(--gold);font-weight:600;margin-bottom:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--gold);color:#f3e3b8;border-radius:999px;padding:4px 12px;font-size:.85rem}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.stat{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);padding:14px 16px;border-radius:6px}
+.stat b{display:block;font-family:Fraunces,Georgia,serif;font-size:1.7rem}
+.stat span{color:var(--mute);font-size:.9rem}
+.term{background:var(--term);color:var(--termink);border-radius:8px;overflow-x:auto;margin:12px 0;border:1px solid var(--line)}
+.term .bar{background:#1b2f52;color:#b9c6dc;font-size:.8rem;padding:6px 12px}
+.term pre{margin:0;padding:12px 14px;font:13px/1.55 ui-monospace,Menlo,Consolas,monospace;white-space:pre}
+.ok{color:var(--ok)}
+.flow{display:grid;gap:10px;padding:0;list-style:none;margin:0;counter-reset:s}
+.flow li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:12px 14px 12px 48px;position:relative}
+.flow li::before{content:counter(s);position:absolute;left:14px;top:12px;width:24px;height:24px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:600;text-align:center;line-height:24px;font-size:.85rem}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line)}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);font-size:.95rem;vertical-align:top}
+th{background:var(--navy);color:#fff}
+.scroll{overflow-x:auto}
+.diagram{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px;overflow-x:auto}
+.diagram svg{min-width:640px;width:100%;height:auto}
+.box{fill:var(--card);stroke:var(--navy2);stroke-width:1.5}
+.gold{fill:none;stroke:var(--gold);stroke-width:2}
+.t{fill:var(--ink);font:600 13px Inter,sans-serif}
+.s{fill:var(--mute);font:12px Inter,sans-serif}
+a.btn{display:inline-block;background:var(--gold);color:var(--navy);font-weight:600;padding:10px 18px;border-radius:6px;text-decoration:none;margin:4px 8px 4px 0}
+a.btn.alt{background:transparent;border:1px solid var(--gold);color:var(--ink)}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9em;background:var(--line);padding:1px 5px;border-radius:4px}
+footer{background:var(--navy);color:#d5dcea;padding:30px 0;border-top:3px solid var(--gold)}
+footer b{color:var(--gold);font-family:Fraunces,Georgia,serif;font-size:1.2rem}
+footer a{color:#f3e3b8}
+</style>
+</head>
+<body>
+
+<header class="hero"><div class="wrap">
+<div class="brand">Gondal Digital Agency | Cloud &amp; DevOps Portfolio</div>
+<h1>Project 1.1: Containerized Flask App</h1>
+<p>A Flask API packaged with Docker, served by Gunicorn and run as a non-root user. Built and tested in AWS CloudShell, then published to GitHub.</p>
+<div class="chips"><span class="chip">Docker</span><span class="chip">Python 3.12</span><span class="chip">Flask 3.0.3</span><span class="chip">Gunicorn 22.0.0</span><span class="chip">AWS CloudShell</span></div>
+</div></header>
+
+<main class="wrap">
+
+<section id="outcomes">
+<h2>Project outcomes and metrics</h2>
+<p class="sub">Every figure below comes from the terminal output of this build.</p>
+<div class="stats">
+<div class="stat"><b>134 MB</b><span>image size (gda-flask:1.0)</span></div>
+<div class="stat"><b>uid 1000</b><span>container runs as appuser, not root</span></div>
+<div class="stat"><b>2 of 2</b><span>endpoints returned the expected JSON</span></div>
+<div class="stat"><b>1 worker</b><span>Gunicorn sync worker booted</span></div>
+</div>
+</section>
+
+<section id="architecture">
+<h2>Architecture diagram</h2>
+<p class="sub">One container on one Docker host. Port 5000 is published to the host.</p>
+<div class="diagram">
+<svg viewBox="0 0 700 220" role="img" aria-label="Client calls host port 5000, which maps to the gda-flask container running Gunicorn and Flask as appuser">
+<rect class="box" x="20" y="80" width="120" height="60" rx="8"/>
+<text class="t" x="80" y="108" text-anchor="middle">Client</text>
+<text class="s" x="80" y="126" text-anchor="middle">curl</text>
+<rect class="box" x="200" y="40" width="460" height="140" rx="10"/>
+<text class="s" x="214" y="60">Docker host (AWS CloudShell)</text>
+<rect class="box" x="220" y="80" width="100" height="60" rx="8"/>
+<text class="t" x="270" y="108" text-anchor="middle">Port 5000</text>
+<text class="s" x="270" y="126" text-anchor="middle">published</text>
+<rect class="gold" x="360" y="62" width="280" height="104" rx="8"/>
+<text class="t" x="374" y="82">Container: gda-flask:1.0</text>
+<rect class="box" x="374" y="94" width="120" height="50" rx="6"/>
+<text class="t" x="434" y="116" text-anchor="middle">Gunicorn</text>
+<text class="s" x="434" y="132" text-anchor="middle">0.0.0.0:5000</text>
+<rect class="box" x="510" y="94" width="116" height="50" rx="6"/>
+<text class="t" x="568" y="116" text-anchor="middle">Flask app</text>
+<text class="s" x="568" y="132" text-anchor="middle">/ and /health</text>
+<text class="s" x="374" y="158">runs as appuser (uid 1000)</text>
+<path d="M140 110H220M320 110H360M494 119H510" stroke="var(--gold)" stroke-width="2" fill="none"/>
+</svg>
+</div>
+</section>
+
+<section id="workflow">
+<h2>Technical workflow</h2>
+<ol class="flow">
+<li>Wrote a small Flask app with <code>/</code> and <code>/health</code> routes, and pinned its dependencies.</li>
+<li>Wrote a Dockerfile on <code>python:3.12-slim</code> that installs dependencies first, so Docker can cache that layer.</li>
+<li>Created an <code>appuser</code> account and switched to it before the app starts.</li>
+<li>Replaced the Flask dev server with Gunicorn as the process that serves traffic.</li>
+<li>Built the image, started the container with <code>-p 5000:5000</code>, and tested both endpoints.</li>
+<li>Checked logs and the running user, then removed the container and published the project to GitHub.</li>
+</ol>
+</section>
+
+<section id="terminal">
+<h2>Terminal screenshots</h2>
+<p class="sub">Real output captured in AWS CloudShell on 12 November 2026.</p>
+<div class="term"><div class="bar">Test the endpoints</div><pre>$ curl localhost:5000
+{"message":"Hello from GDA Docker project","version":"1.0"}
+$ curl localhost:5000/health
+{"status":"ok"}</pre></div>
+<div class="term"><div class="bar">Container logs</div><pre>$ docker logs flask-test
+[INFO] Starting gunicorn 22.0.0
+[INFO] Listening at: http://0.0.0.0:5000 (1)
+[INFO] Using worker: sync
+[INFO] Booting worker with pid: 7</pre></div>
+<div class="term"><div class="bar">Image size and non-root check</div><pre>$ docker images gda-flask
+REPOSITORY   TAG   IMAGE ID       CREATED         SIZE
+gda-flask    1.0   6aff6588b8ee   2 minutes ago   134MB
+$ docker exec flask-test whoami
+appuser
+$ docker exec flask-test id
+uid=1000(appuser) gid=1000(appuser) groups=1000(appuser)</pre></div>
+</section>
+
+<section id="testing">
+<h2>Testing and evidence</h2>
+<div class="scroll"><table>
+<tr><th>Test</th><th>Result</th><th>Evidence</th></tr>
+<tr><td>GET /</td><td class="ok">Pass</td><td>Returned the message and version 1.0</td></tr>
+<tr><td>GET /health</td><td class="ok">Pass</td><td>Returned {"status":"ok"}</td></tr>
+<tr><td>Server startup</td><td class="ok">Pass</td><td>Gunicorn started and booted a worker</td></tr>
+<tr><td>Non-root user</td><td class="ok">Pass</td><td>whoami returned appuser</td></tr>
+<tr><td>First request right after start</td><td>Failed once</td><td>Connection reset by peer. Gunicorn was still starting. Retrying after 3 seconds worked.</td></tr>
+</table></div>
+<p class="sub" style="margin-top:12px">The failed first request is a useful finding. It shows why a container needs a HEALTHCHECK, which is added in Project 1.2.</p>
+</section>
+
+<section id="scripts">
+<h2>Automation scripts breakdown</h2>
+<div class="scroll"><table>
+<tr><th>File</th><th>What it does</th></tr>
+<tr><td><code>app/app.py</code></td><td>Defines the <code>/</code> route (reads <code>APP_VERSION</code> from the environment) and the <code>/health</code> route.</td></tr>
+<tr><td><code>app/requirements.txt</code></td><td>Pins Flask 3.0.3 and Gunicorn 22.0.0 so builds are repeatable.</td></tr>
+<tr><td><code>Dockerfile</code></td><td>Builds from python:3.12-slim, installs dependencies, creates appuser, and starts Gunicorn on port 5000.</td></tr>
+<tr><td><code>.dockerignore</code></td><td>Keeps <code>.git</code>, caches and <code>.env</code> out of the build context.</td></tr>
+</table></div>
+<div class="term"><div class="bar">Build and run</div><pre>docker build -t gda-flask:1.0 .
+docker run -d --name flask-test -p 5000:5000 -e APP_VERSION=1.0 gda-flask:1.0</pre></div>
+</section>
+
+<section id="links">
+<h2>GitHub and live links</h2>
+<p class="sub">This is a local container project, so there is no public live URL. The code and README are on GitHub.</p>
+<a class="btn" href="https://github.com/sherazgondal5212/devops-portfolio/tree/main/01-docker-flask">Project 1.1 on GitHub</a>
+<a class="btn alt" href="https://github.com/sherazgondal5212/devops-portfolio">Full portfolio repo</a>
+<p class="sub">Next: Project 1.4 pushes this kind of image to Amazon ECR and runs it on EC2.</p>
+</section>
+
+</main>
+
+<footer id="brand"><div class="wrap">
+<b>Gondal Digital Agency</b>
+<p>A reliable technology partner for international startups and businesses. Cloud and DevOps engineering on AWS.</p>
+<a href="https://gondaldigitalagency.com">gondaldigitalagency.com</a>
+</div></footer>
+
+</body>
+</html>
